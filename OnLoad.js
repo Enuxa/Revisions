@@ -1,4 +1,5 @@
 var studyDatas = null;
+var studyProgress = 0;
 
 try {
     if (document.cookie != "") {

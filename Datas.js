@@ -105,6 +105,27 @@ var StudyDatas = function () {
     return {
         subjects : {},
         limit : 10,
+        sessionsCount : function () {
+            var n = 0;
+            for(var subjectName in this.subjects) {
+                n += this.subjects[subjectName].sessionsCount();
+            }
+            return n;
+        },
+        checkedCount : function () {
+            var n = 0;
+            for(var subjectName in this.subjects) {
+                n += this.subjects[subjectName].checkedCount();
+            }
+            return n;
+        },
+        getProgress : function() {
+            if(this.sessionsCount() == 0) {
+                return 1;
+            } else {
+                return this.checkedCount() / this.sessionsCount();
+            }
+        },
         save : function () {
             var expiration = new Date(this.getLastExamDate().toJSON());
             expiration.setDate(expiration.getDate() + 1);

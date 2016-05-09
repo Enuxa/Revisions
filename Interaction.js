@@ -158,6 +158,9 @@ var newChapter = function(subjectName) {
     makePage();
 }
 
+/**
+ * Place un backslash avant les apostrophes et guillemets 
+ */
 var strToArg = function(str) {
     return str.replace("'", "\\'").replace("\"", "\\\"");
 }
@@ -169,11 +172,40 @@ var makePage = function() {
     var list = document.getElementById("subjectslist");
     list.innerHTML = "";
 
+    startProgressAnimation(studyProgress,
+                            Math.floor(studyDatas.getProgress() * 100),
+                            500);
+    
     document.getElementById("limit").value = studyDatas.limit;
     
     for(var subject in studyDatas.subjects) {
         addSubjectSection(studyDatas.subjects[subject], list);
     }
+}
+
+/**
+ * Lance l'animation pour l'actualisation de la barre de progression
+ * p0       Le pourcentage de progression de départ
+ * p1       Le pourcentage de progression final
+ * duration Le temps de l'animation en millisecondes
+ */
+var startProgressAnimation = function(p0, p1, duration) {
+    var frameRate = 1 / 60;
+    
+    var stepCursor = 1000 * frameRate / duration;
+
+    var cursor = 0;
+    var interval = setInterval(function() {
+        cursor += stepCursor;
+        studyProgress = p0 + Math.sin(cursor * Math.PI / 2) * (p1 - p0);
+        if(cursor < 0 || cursor > 1) {
+            clearInterval(interval);
+        } else {
+            document.getElementById("progressdone").style = "width:" + studyProgress + "%" ;
+            document.getElementById("progressleft").style = "width:" + (100 - studyProgress - 1) + "%" ;
+        }
+    },
+    1000 * frameRate);
 }
 
 /**

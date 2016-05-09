@@ -110,3 +110,29 @@ label {
     margin-top: 50px;
     margin-bottom: 20px;
 }
+
+#progressbar {
+    width: 100%;
+    height: 12pt;
+    display: inline-block;
+}
+
+#progressdone, #progressleft {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: inline-block;
+}
+
+#progressdone {
+    background-color: darkslateblue;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#progressleft {
+    background-color: rgb(50,50,50);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
